@@ -1,0 +1,63 @@
+<resources>
+    <string name="appName">Xray</string>
+    <string name="noValue">-</string>
+    <string name="drawerOpen">Open drawer</string>
+    <string name="drawerClose">Close drawer</string>
+    <string name="fromClipboard">From Clipboard</string>
+    <string name="loading">Loading…</string>
+    <string name="vpnStart">START</string>
+    <string name="vpnStop">STOP</string>
+    <string name="pingNotConnected">Not Connected</string>
+    <string name="pingConnected">Connected, tap to check connection</string>
+    <string name="pingTesting">Testing…</string>
+    <string name="appFullName">SaeedDev94/Xray</string>
+    <string name="xrayLabel">XTLS/Xray-core</string>
+    <string name="tun2socksLabel">heiher/hev-socks5-tunnel</string>
+    <string name="tun2socksVersion">2.7.4</string>
+    <string name="assets">Assets</string>
+    <string name="logs">Logs</string>
+    <string name="excludedApps">Excluded Apps</string>
+    <string name="settings">Settings</string>
+    <string name="geoIp">GeoIP</string>
+    <string name="geoSite">GeoSite</string>
+    <string name="newProfile">New Profile</string>
+    <string name="editProfile">Edit Profile</string>
+    <string name="profileName">Name</string>
+    <string name="profileConfig">Config</string>
+    <string name="editIcon">Edit Icon</string>
+    <string name="deleteIcon">Delete Icon</string>
+    <string name="downloadIcon">Download Icon</string>
+    <string name="fileOpenIcon">File Open Icon</string>
+    <string name="copyLogs">Copy Logs</string>
+    <string name="deleteLogs">Delete Logs</string>
+    <string name="appIcon">App Icon</string>
+    <string name="openJson">Open Json</string>
+    <string name="saveExcludedApps">Save Excluded Apps</string>
+    <string name="saveSettings">Save Settings</string>
+    <string name="saveProfile">Save Profile</string>
+
+    <!-- Basic Settings -->
+    <string name="socksAddress">Socks Address</string>
+    <string name="socksPort">Socks Port</string>
+    <string name="socksUsername">Socks Username</string>
+    <string name="socksPassword">Socks Password</string>
+    <string name="geoIpAddress">GeoIP Address</string>
+    <string name="geoSiteAddress">GeoSite Address</string>
+    <string name="pingAddress">Ping Address</string>
+    <string name="pingTimeout">Ping Timeout</string>
+    <string name="bypassLan">Bypass LAN (IPv4)</string>
+    <string name="enableIpV6">Enable IPv6</string>
+    <string name="socksUdp">Socks UDP</string>
+
+    <!-- Advanced Settings -->
+    <string name="primaryDns">Primary DNS (v4)</string>
+    <string name="secondaryDns">Secondary DNS (v4)</string>
+    <string name="primaryDnsV6">Primary DNS (v6)</string>
+    <string name="secondaryDnsV6">Secondary DNS (v6)</string>
+    <string name="tunName">Tun Name</string>
+    <string name="tunMtu">Tun Mtu</string>
+    <string name="tunAddress">Tun Address (IPv4)</string>
+    <string name="tunPrefix">Prefix</string>
+    <string name="tunAddressV6">Tun Address (IPv6)</string>
+    <string name="tunPrefixV6">Prefix</string>
+</resources>
