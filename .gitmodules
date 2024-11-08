@@ -7,3 +7,6 @@
 [submodule "XrayCore/Xray-core"]
 	path = XrayCore/Xray-core
 	url = https://github.com/XTLS/Xray-core.git
+[submodule ".devcontainer"]
+	path = .devcontainer
+	url = https://github.com/raymond-chetty/codespaces-AndroidSDK-CE
