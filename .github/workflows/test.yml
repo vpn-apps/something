@@ -34,14 +34,19 @@ jobs:
             -e KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}" \
             arm32
       
-      - name: List dist directory contents
-        run: ls -la /opt/dist
+      - name: Debug - List dist directory before artifact upload
+        run: |
+          echo "Contents of /opt/dist:"
+          ls -la /opt/dist
+          echo "File type of XrayCore.aar:"
+          file /opt/dist/XrayCore.aar || true
       
       - name: Upload arm32 artifact
         uses: actions/upload-artifact@v4
         with:
           name: arm32-build
           path: /opt/dist/
+          retention-days: 1
   
   publish:
     runs-on: ubuntu-latest
@@ -59,8 +64,16 @@ jobs:
           name: arm32-build
           path: dist
       
-      - name: List downloaded artifacts
-        run: ls -la dist/
+      - name: Debug - List downloaded artifacts
+        run: |
+          echo "Contents of dist directory:"
+          ls -la dist/
+          echo "Full path of current directory:"
+          pwd
+          echo "File type of XrayCore.aar (if exists):"
+          file dist/XrayCore.aar || true
+          echo "Tree structure of dist directory:"
+          tree dist/ || true
       
       - name: Set VERSION_CODE
         run: |
@@ -69,14 +82,31 @@ jobs:
           ((VERSION_CODE += ALL_VARIANTS))
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
       
+      - name: Debug - List files before publish
+        run: |
+          echo "Files matching dist/*.aar:"
+          find dist -name "*.aar" || true
+          echo "Files matching dist/*.apk:"
+          find dist -name "*.apk" || true
+      
       - name: Publish release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           prerelease: false
           draft: false
           files: |
-            dist/*.apk
-            dist/*.aar
+            ./dist/*.apk
+            ./dist/*.aar
           body_path: ${{ github.workspace }}/metadata/en-US/changelogs/${{ env.VERSION_CODE }}.txt
+
+      - name: Debug - List published files
+        if: always()
+        run: |
+          echo "Released files for tag ${{ github.ref_name }}:"
+          gh release view ${{ github.ref_name }} --json assets --jq '.assets[].name'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
