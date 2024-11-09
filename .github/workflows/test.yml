@@ -62,6 +62,6 @@ jobs:
           prerelease: false
           draft: false
           files: |
-            "dist/*.apk"
-            "dist/*.aar"
+            dist/*.apk
+            dist/*.aar
           body_path: ${{ github.workspace }}/metadata/en-US/changelogs/${{ env.VERSION_CODE }}.txt
