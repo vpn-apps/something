@@ -1,0 +1,67 @@
+name: Release CI
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-arm32:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build arm32 docker
+        run: docker build -t arm32 -f Dockerfile .
+      - name: Compile arm32 build
+        run: |
+          docker run --rm \
+            -v /opt/dist:/opt/dist \
+            -e DIST_DIR='/opt/dist' \
+            -e RELEASE_TAG="$GITHUB_REF_NAME" \
+            -e NATIVE_ARCH="arm" \
+            -e ABI_ID=1 \
+            -e ABI_TARGET="armeabi-v7a" \
+            -e KS_FILE="${{ secrets.KS_FILE }}" \
+            -e KS_PASSWORD="${{ secrets.KS_PASSWORD }}" \
+            -e KEY_ALIAS="${{ secrets.KEY_ALIAS }}" \
+            -e KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}" \
+            arm32
+      - name: Upload arm32 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arm32-build
+          path: /opt/dist/*
+
+  publish:
+    runs-on: ubuntu-latest
+    needs:
+      - build-arm32
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Download arm32 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: arm32-build
+          path: dist
+      - name: Set VERSION_CODE
+        run: |
+          ALL_VARIANTS=4
+          VERSION_CODE=$(cat "$GITHUB_WORKSPACE/app/versionCode.txt")
+          ((VERSION_CODE += ALL_VARIANTS))
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+      - name: Publish release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          prerelease: false
+          draft: false
+          files: |
+            "dist/*.apk"
+            "dist/*.aar"
+          body_path: ${{ github.workspace }}/metadata/en-US/changelogs/${{ env.VERSION_CODE }}.txt
