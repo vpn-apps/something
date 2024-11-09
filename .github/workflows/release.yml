@@ -122,11 +122,17 @@ jobs:
       - build-arm64
       - build-x86
       - build-amd64
+      - XrayCore
     permissions:
       contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Download XrayCore artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: XrayCore
+          path: dist
       - name: Download arm32 artifact
         uses: actions/download-artifact@v4
         with:
