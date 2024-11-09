@@ -85,7 +85,7 @@ go mod download
 gomobile init
 gomobile bind -o "../app/libs/XrayCore.aar" -androidapi 26 -target "android/$NATIVE_ARCH" -ldflags="-buildid=" -trimpath
 popd
-
+mv "../app/libs/XrayCore.aar" "$DIST_DIR"
 # Build app
 gradle -PabiId=$ABI_ID -PabiTarget=$ABI_TARGET assembleRelease
 
