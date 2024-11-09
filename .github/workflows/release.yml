@@ -122,7 +122,6 @@ jobs:
       - build-arm64
       - build-x86
       - build-amd64
-      - XrayCore
     permissions:
       contents: write
     steps:
