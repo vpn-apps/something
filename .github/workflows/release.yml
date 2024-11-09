@@ -1,7 +1,6 @@
 name: Release CI
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - '*'
@@ -127,11 +126,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Download XrayCore artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: XrayCore
-          path: dist
       - name: Download arm32 artifact
         uses: actions/download-artifact@v4
         with:
@@ -165,5 +159,7 @@ jobs:
           name: ${{ github.ref_name }}
           prerelease: false
           draft: false
-          files: "dist/*.apk"
+          files: |
+            "dist/*.apk"
+            "dist/*.aar"
           body_path: ${{ github.workspace }}/metadata/en-US/changelogs/${{ env.VERSION_CODE }}.txt
