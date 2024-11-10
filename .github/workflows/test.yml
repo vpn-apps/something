@@ -25,7 +25,7 @@ jobs:
             -v /opt/dist:/opt/dist \
             -e DIST_DIR='/opt/dist' \
             -e RELEASE_TAG="$GITHUB_REF_NAME" \
-            -e NATIVE_ARCH="arm" \
+            -e NATIVE_ARCH="" \
             -e ABI_ID=1 \
             -e ABI_TARGET="armeabi-v7a" \
             -e KS_FILE="${{ secrets.KS_FILE }}" \
