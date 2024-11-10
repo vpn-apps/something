@@ -83,7 +83,7 @@ pushd ../XrayCore
 go install golang.org/x/mobile/cmd/gomobile@$GO_MOBILE_VERSION
 go mod download
 gomobile init
-gomobile bind -o "../app/libs/XrayCore.aar" -androidapi 26 -target "android/$NATIVE_ARCH" -ldflags="-buildid=" -trimpath
+gomobile bind -o "../app/libs/XrayCore.aar" -androidapi 26 -target "android$NATIVE_ARCH" -ldflags="-buildid=" -trimpath
 cp "../app/libs/XrayCore.aar" "$DIST_DIR"
 popd
 
